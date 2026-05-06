@@ -1,0 +1,32 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  line-height: 1.5;
+}
+
+.badge.compact {
+  padding: 1px 6px;
+  font-size: 10px;
+}
+
+.high {
+  background: #FEE9E7;
+  color: var(--red);
+}
+
+.low {
+  background: #FEF4E0;
+  color: var(--amber);
+}
+
+.confirmed {
+  background: #F9DEDA;
+  color: var(--dark-red);
+  font-weight: 700;
+}
