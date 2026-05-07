@@ -1,7 +1,12 @@
 import styles from './ChurnBadge.module.css'
 
-export default function ChurnBadge({ risk, compact = false }) {
-  if (!risk) return null
+export default function ChurnBadge({ risk, compact = false, showPlaceholder = false }) {
+  if (!risk) {
+    if (showPlaceholder) {
+      return <span className={styles.placeholder}>—</span>
+    }
+    return null
+  }
 
   const variant = {
     High: 'high',
@@ -9,7 +14,12 @@ export default function ChurnBadge({ risk, compact = false }) {
     'Confirmed Churn': 'confirmed',
   }[risk]
 
-  if (!variant) return null
+  if (!variant) {
+    if (showPlaceholder) {
+      return <span className={styles.placeholder}>—</span>
+    }
+    return null
+  }
 
   return (
     <span className={`${styles.badge} ${styles[variant]} ${compact ? styles.compact : ''}`}>

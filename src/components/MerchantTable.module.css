@@ -1,0 +1,226 @@
+.tableWrap {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  overflow: auto;
+  box-shadow: var(--shadow-card);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 960px;
+}
+
+.table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #fbfbfc;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  padding: 10px 12px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.sortBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: inherit;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--blue);
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.sortBtn:hover {
+  text-decoration: underline;
+}
+
+.sortIcon {
+  font-size: 12px;
+  line-height: 1;
+}
+
+.thMerchant {
+  min-width: 200px;
+}
+
+.thNum {
+  width: 100px;
+}
+
+.thChurn {
+  width: 100px;
+}
+
+.thCsm {
+  min-width: 140px;
+}
+
+.thCan .thAccent {
+  margin-right: 4px;
+}
+
+.thCan {
+  color: var(--green);
+}
+
+.thConn .thBlue {
+  margin-right: 4px;
+}
+
+.thConn {
+  color: var(--blue);
+  min-width: 160px;
+}
+
+.th3pl .thPurple {
+  margin-right: 4px;
+}
+
+.th3pl {
+  color: #5b21b6;
+  min-width: 140px;
+}
+
+.row {
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.row:hover {
+  background: #fafafa;
+}
+
+.row:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: -2px;
+}
+
+.rowOpen {
+  background: #f3f5ff;
+}
+
+.row td {
+  padding: 10px 12px;
+  vertical-align: middle;
+}
+
+.detailTr td {
+  padding: 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.merchantCell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: flex-start;
+}
+
+.merchantName {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.merchantVert {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.tdNum {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.tdCsm {
+  color: var(--text-primary);
+  max-width: 180px;
+}
+
+.pillGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.pillCan {
+  display: inline-flex;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  background: #d6f0e2;
+  color: var(--green);
+  border: 1.5px solid var(--green);
+}
+
+.pillCan:hover {
+  filter: brightness(0.96);
+}
+
+.pillConnected {
+  display: inline-flex;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--green);
+  border: 1.5px solid var(--green);
+  background: transparent;
+}
+
+.nonePill {
+  display: inline-flex;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  border: 1.5px dashed #c5c5cb;
+}
+
+.pill3pl {
+  display: inline-flex;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  color: #5b21b6;
+  border: 1.5px solid #a78bfa;
+  background: #faf8ff;
+}
+
+.dashCircle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 22px;
+  border-radius: var(--radius-full);
+  border: 1.5px dashed #c5c5cb;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.empty {
+  font-size: 13px;
+  color: var(--text-muted);
+  padding: 24px 8px;
+}

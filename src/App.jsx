@@ -1,131 +1,156 @@
-import { useState, useMemo } from 'react'
-import merchantsData from '../merchants.json'
-import MerchantList from './components/MerchantList.jsx'
-import MerchantDetail from './components/MerchantDetail.jsx'
-import Filters from './components/Filters.jsx'
+import { useMemo, useState, useEffect } from 'react'
+import database from '../integration-recommender-database.json'
+import KpiRow from './components/KpiRow.jsx'
+import FilterBar from './components/FilterBar.jsx'
+import MerchantTable from './components/MerchantTable.jsx'
+import {
+  filterMerchants,
+  sortByTtm,
+  uniqueSorted,
+  computeKpis,
+} from './lib/merchantsFilter.js'
+import { formatGeneratedAt } from './lib/format.js'
 import styles from './App.module.css'
 
-const SEGMENT_FILTERS = ['Enterprise', 'Mid-Market']
-const CHURN_FILTERS = ['High', 'Low', 'Confirmed Churn', 'None']
+const PAGE_SIZE = 50
+
+const initialFilter = () => ({
+  search: '',
+  churn: 'all',
+  minTtm: 0,
+  vertical: 'all',
+  csm: 'all',
+  onlyActionable: false,
+  only3pl: false,
+})
 
 export default function App() {
-  const [search, setSearch] = useState('')
-  const [activeSegments, setActiveSegments] = useState(new Set())
-  const [activeChurns, setActiveChurns] = useState(new Set())
-  const [selectedMerchant, setSelectedMerchant] = useState(null)
+  const merchants = database.merchants
+  const scanProgress = database.scan_progress
+  const generatedAt = database.generated_at
 
-  const merchants = merchantsData.merchants
+  const verticalOptions = useMemo(() => uniqueSorted(merchants.map((m) => m.vertical)), [merchants])
+  const csmOptions = useMemo(() => uniqueSorted(merchants.map((m) => m.csm)), [merchants])
 
-  const filtered = useMemo(() => {
-    return merchants.filter((m) => {
-      if (search && !m.name.toLowerCase().includes(search.toLowerCase())) return false
-      if (activeSegments.size > 0 && !activeSegments.has(m.segment)) return false
-      if (activeChurns.size > 0) {
-        const churnLabel = m.churn_risk === null ? 'None' : m.churn_risk
-        if (!activeChurns.has(churnLabel)) return false
-      }
-      return true
-    })
-  }, [merchants, search, activeSegments, activeChurns])
+  const [filter, setFilter] = useState(initialFilter)
+  const [sortDir, setSortDir] = useState('desc')
+  const [page, setPage] = useState(1)
+  const [expandedId, setExpandedId] = useState(null)
 
-  function toggleSet(set, setSet, value) {
-    const next = new Set(set)
-    if (next.has(value)) next.delete(value)
-    else next.add(value)
-    setSet(next)
+  const filtered = useMemo(() => filterMerchants(merchants, filter), [merchants, filter])
+  const sorted = useMemo(() => sortByTtm(filtered, sortDir), [filtered, sortDir])
+  const kpis = useMemo(() => computeKpis(filtered), [filtered])
+
+  const totalPages = Math.max(1, Math.ceil(sorted.length / PAGE_SIZE))
+
+  useEffect(() => {
+    setPage(1)
+  }, [filter])
+
+  useEffect(() => {
+    if (page > totalPages) setPage(totalPages)
+  }, [page, totalPages])
+
+  useEffect(() => {
+    setExpandedId(null)
+  }, [filter])
+
+  function resetFilters() {
+    setFilter(initialFilter())
+    setSortDir('desc')
+    setExpandedId(null)
   }
+
+  function toggleSort() {
+    setSortDir((d) => (d === 'desc' ? 'asc' : 'desc'))
+  }
+
+  const subtitleCount = scanProgress?.total ?? merchants.length
+  const scannedRatio = scanProgress
+    ? `${scanProgress.scanned.toLocaleString()}/${scanProgress.total.toLocaleString()}`
+    : ''
+
+  const pageLabel = `${sorted.length.toLocaleString()} merchants · page ${page} / ${totalPages}`
 
   return (
     <div className={styles.layout}>
-      <header className={styles.header}>
-        <div className={styles.headerInner}>
-          <div className={styles.logo}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <rect width="24" height="24" rx="6" fill="#2B33FF"/>
-              <path d="M7 7h4v10H7zM13 7h4v6h-4z" fill="white"/>
-            </svg>
-            <span className={styles.logoText}>Loop</span>
+      <header className={styles.hero}>
+        <div className={styles.heroTop}>
+          <div>
+            <h1 className={styles.title}>Integration Recommender · Database</h1>
+            <p className={styles.subtitle}>
+              {subtitleCount.toLocaleString()} active Loop customers · current integrations + storefront stack + 3PL/WMS +
+              actionable connect plays
+            </p>
           </div>
-          <h1 className={styles.title}>Integration Recommender</h1>
+          <div className={styles.meta}>
+            <span className={styles.metaLine}>Generated {formatGeneratedAt(generatedAt)}</span>
+            {scannedRatio && (
+              <span className={styles.metaLine}>
+                Storefronts scanned: {scannedRatio}
+              </span>
+            )}
+            <span className={styles.hint}>To refresh, type &quot;refresh integration recommender&quot; in chat</span>
+          </div>
         </div>
+        <KpiRow kpis={kpis} />
+        <FilterBar
+          search={filter.search}
+          onSearch={(search) => setFilter((f) => ({ ...f, search }))}
+          churn={filter.churn}
+          onChurn={(churn) => setFilter((f) => ({ ...f, churn }))}
+          minTtm={filter.minTtm}
+          onMinTtm={(minTtm) => setFilter((f) => ({ ...f, minTtm }))}
+          vertical={filter.vertical}
+          onVertical={(vertical) => setFilter((f) => ({ ...f, vertical }))}
+          verticalOptions={verticalOptions}
+          csm={filter.csm}
+          onCsm={(csm) => setFilter((f) => ({ ...f, csm }))}
+          csmOptions={csmOptions}
+          onlyActionable={filter.onlyActionable}
+          onOnlyActionable={(onlyActionable) => setFilter((f) => ({ ...f, onlyActionable }))}
+          only3pl={filter.only3pl}
+          onOnly3pl={(only3pl) => setFilter((f) => ({ ...f, only3pl }))}
+          onReset={resetFilters}
+          pageLabel={pageLabel}
+        />
       </header>
 
       <main className={styles.main}>
-        <div className={styles.sidebar}>
-          <div className={styles.searchWrap}>
-            <SearchIcon />
-            <input
-              className={styles.search}
-              type="text"
-              placeholder="Search merchants…"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-            {search && (
-              <button className={styles.clearSearch} onClick={() => setSearch('')}>
-                ×
-              </button>
-            )}
-          </div>
-
-          <Filters
-            label="Segment"
-            options={SEGMENT_FILTERS}
-            active={activeSegments}
-            onToggle={(v) => toggleSet(activeSegments, setActiveSegments, v)}
-          />
-          <Filters
-            label="Churn Risk"
-            options={CHURN_FILTERS}
-            active={activeChurns}
-            onToggle={(v) => toggleSet(activeChurns, setActiveChurns, v)}
-          />
-
-          <p className={styles.count}>
-            {filtered.length} merchant{filtered.length !== 1 ? 's' : ''}
-          </p>
-
-          <MerchantList
-            merchants={filtered}
-            partners={merchantsData.partners}
-            selected={selectedMerchant}
-            onSelect={setSelectedMerchant}
-          />
-        </div>
-
-        <div className={styles.detail}>
-          {selectedMerchant ? (
-            <MerchantDetail
-              merchant={selectedMerchant}
-              partners={merchantsData.partners}
-              onClose={() => setSelectedMerchant(null)}
-            />
-          ) : (
-            <EmptyState />
-          )}
-        </div>
+        <MerchantTable
+          merchants={sorted}
+          expandedId={expandedId}
+          onToggleExpand={setExpandedId}
+          sortDir={sortDir}
+          onToggleSort={toggleSort}
+          page={page}
+          pageSize={PAGE_SIZE}
+          totalFiltered={sorted.length}
+        />
+        {sorted.length > 0 && (
+          <nav className={styles.pagination} aria-label="Pagination">
+            <button
+              type="button"
+              className={styles.pageBtn}
+              disabled={page <= 1}
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+            >
+              Previous
+            </button>
+            <span className={styles.pageStatus}>
+              Page {page} of {totalPages}
+            </span>
+            <button
+              type="button"
+              className={styles.pageBtn}
+              disabled={page >= totalPages}
+              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+            >
+              Next
+            </button>
+          </nav>
+        )}
       </main>
-    </div>
-  )
-}
-
-function SearchIcon() {
-  return (
-    <svg className={styles.searchIcon} width="16" height="16" viewBox="0 0 16 16" fill="none">
-      <circle cx="7" cy="7" r="4.5" stroke="#9B9BA4" strokeWidth="1.5"/>
-      <path d="M10.5 10.5L13 13" stroke="#9B9BA4" strokeWidth="1.5" strokeLinecap="round"/>
-    </svg>
-  )
-}
-
-function EmptyState() {
-  return (
-    <div className={styles.emptyState}>
-      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-        <rect x="8" y="8" width="32" height="32" rx="8" fill="#E5E5E7"/>
-        <path d="M16 20h16M16 24h12M16 28h8" stroke="#9B9BA4" strokeWidth="2" strokeLinecap="round"/>
-      </svg>
-      <p>Select a merchant to view integration recommendations</p>
     </div>
   )
 }

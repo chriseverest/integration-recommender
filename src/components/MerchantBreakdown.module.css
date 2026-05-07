@@ -1,0 +1,146 @@
+.wrap {
+  padding: 16px 20px 18px;
+  background: linear-gradient(180deg, #fafaff 0%, #f7f7fb 100%);
+  border-top: 1px solid var(--border);
+}
+
+.kv {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 8px 20px;
+  font-size: 13px;
+  align-items: baseline;
+  margin-bottom: 18px;
+}
+
+.kv dt {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.kv dd {
+  color: var(--text-primary);
+  font-weight: 500;
+  margin: 0;
+  min-width: 0;
+}
+
+.domainRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+}
+
+.extLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--blue);
+  font-weight: 600;
+}
+
+.extLink:hover {
+  text-decoration: underline;
+}
+
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.blockTitle {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pillRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.pillNone {
+  display: inline-flex;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  border: 1.5px dashed #c5c5cb;
+  background: transparent;
+}
+
+.canPill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  background: #d6f0e2;
+  color: var(--green);
+  border: 1.5px solid var(--green);
+}
+
+.canPill:hover {
+  filter: brightness(0.97);
+}
+
+.connPill {
+  display: inline-flex;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--green);
+  border: 1.5px solid var(--green);
+  background: transparent;
+}
+
+.otherPill {
+  display: inline-flex;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  border: 1.5px dashed #c5c5cb;
+  background: var(--surface);
+}
+
+.tplPill {
+  display: inline-flex;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  color: #5b21b6;
+  border: 1.5px solid #a78bfa;
+  background: #f5f3ff;
+}
+
+.no3pl {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.footer {
+  margin-top: 16px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
