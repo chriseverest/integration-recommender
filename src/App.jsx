@@ -85,7 +85,7 @@ export default function App() {
               height="40"
             />
             <div>
-              <h1 className={styles.title}>Integration Recommender</h1>
+              <h1 className={styles.title}>Integration Analyzer</h1>
               <p className={styles.subtitle}>
                 {subtitleCount.toLocaleString()} active Loop customers · current integrations + storefront stack + 3PL/WMS +
                 actionable connect plays
@@ -104,7 +104,7 @@ export default function App() {
             )}
             <span className={styles.hint}>
               <span className={styles.hintMark} aria-hidden="true">*</span>
-              To refresh, type &quot;refresh integration recommender&quot; in chat
+              To refresh, type &quot;refresh integration analyzer&quot; in chat
             </span>
           </div>
         </div>

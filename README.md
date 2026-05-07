@@ -1,4 +1,4 @@
-# Integration Recommender (database browser)
+# Integration Analyzer (database browser)
 
 Vite + React app that loads `integration-recommender-database.json` and presents filters, KPIs, a sortable table, and row-level detail.
 
