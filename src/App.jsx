@@ -76,21 +76,36 @@ export default function App() {
     <div className={styles.layout}>
       <header className={styles.hero}>
         <div className={styles.heroTop}>
-          <div>
-            <h1 className={styles.title}>Integration Recommender · Database</h1>
-            <p className={styles.subtitle}>
-              {subtitleCount.toLocaleString()} active Loop customers · current integrations + storefront stack + 3PL/WMS +
-              actionable connect plays
-            </p>
+          <div className={styles.brandBlock}>
+            <img
+              src={`${import.meta.env.BASE_URL}brand/o-lapis.svg`}
+              alt="Loop"
+              className={styles.brandMark}
+              width="40"
+              height="40"
+            />
+            <div>
+              <h1 className={styles.title}>Integration Recommender</h1>
+              <p className={styles.subtitle}>
+                {subtitleCount.toLocaleString()} active Loop customers · current integrations + storefront stack + 3PL/WMS +
+                actionable connect plays
+              </p>
+            </div>
           </div>
           <div className={styles.meta}>
-            <span className={styles.metaLine}>Generated {formatGeneratedAt(generatedAt)}</span>
+            <span className={styles.metaLine}>
+              <span className={styles.liveDot} aria-hidden="true" />
+              Generated {formatGeneratedAt(generatedAt)}
+            </span>
             {scannedRatio && (
               <span className={styles.metaLine}>
                 Storefronts scanned: {scannedRatio}
               </span>
             )}
-            <span className={styles.hint}>To refresh, type &quot;refresh integration recommender&quot; in chat</span>
+            <span className={styles.hint}>
+              <span className={styles.hintMark} aria-hidden="true">*</span>
+              To refresh, type &quot;refresh integration recommender&quot; in chat
+            </span>
           </div>
         </div>
         <KpiRow kpis={kpis} />

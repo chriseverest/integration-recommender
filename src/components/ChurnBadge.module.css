@@ -2,16 +2,17 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 2px 8px;
+  padding: 3px 9px;
   border-radius: var(--radius-full);
   font-size: 11px;
   font-weight: 600;
   white-space: nowrap;
   line-height: 1.5;
+  letter-spacing: 0.01em;
 }
 
 .badge.compact {
-  padding: 1px 6px;
+  padding: 2px 7px;
   font-size: 10px;
 }
 
@@ -26,17 +27,21 @@
 }
 
 .high {
-  background: #FEE9E7;
-  color: var(--red);
+  background: var(--surface-warm);
+  color: var(--text-primary);
+  border: 1px solid var(--border-strong);
+  font-weight: 700;
 }
 
 .low {
-  background: #FEF4E0;
-  color: var(--amber);
+  background: var(--surface-cool);
+  color: var(--warm-charcoal-70);
+  border: 1px solid var(--border);
 }
 
 .confirmed {
-  background: #F9DEDA;
-  color: var(--dark-red);
+  background: var(--text-primary);
+  color: var(--plaster);
+  border: 1px solid var(--text-primary);
   font-weight: 700;
 }

@@ -28,8 +28,23 @@ export default function FilterBar({
   onReset,
   pageLabel,
 }) {
+  const hasActiveFilters =
+    Boolean(search) ||
+    churn !== 'all' ||
+    Number(minTtm) > 0 ||
+    vertical !== 'all' ||
+    csm !== 'all' ||
+    onlyActionable ||
+    only3pl
+
   return (
     <div className={styles.bar}>
+      {hasActiveFilters && (
+        <span className={styles.activeIndicator} aria-label="Filters applied">
+          <span className={styles.activeDot} aria-hidden="true" />
+          Filters applied
+        </span>
+      )}
       <div className={styles.controls}>
         <input
           className={styles.search}

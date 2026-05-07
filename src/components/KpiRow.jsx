@@ -5,7 +5,7 @@ export default function KpiRow({ kpis }) {
     { label: 'Merchants shown', emphasize: 'default', value: kpis.merchantsShown },
     { label: 'High churn risk', emphasize: 'red', value: kpis.highChurn },
     { label: 'Low churn risk', emphasize: 'amber', value: kpis.lowChurn },
-    { label: 'Have ≥1 actionable connect', emphasize: 'green', value: kpis.actionableConnect },
+    { label: 'Have ≥1 actionable connect', emphasize: 'green', value: kpis.actionableConnect, actionable: true },
     { label: '3PL identified', emphasize: 'purple', value: kpis.threeplIdentified },
     { label: 'Storefront scanned', emphasize: 'default', value: kpis.storefrontScanned },
   ]
@@ -13,7 +13,10 @@ export default function KpiRow({ kpis }) {
   return (
     <div className={styles.row}>
       {cards.map((c) => (
-        <div key={c.label} className={styles.card}>
+        <div
+          key={c.label}
+          className={`${styles.card} ${c.actionable ? styles.cardActionable : ''}`}
+        >
           <span className={styles.valueWrap}>
             <span className={`${styles.value} ${styles[c.emphasize] ?? ''}`}>{c.value.toLocaleString()}</span>
           </span>

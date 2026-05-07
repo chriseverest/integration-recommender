@@ -1,3 +1,43 @@
+@font-face {
+  font-family: 'ABC Ginto';
+  src: url('./assets/fonts/ABCGinto-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Matter';
+  src: url('./assets/fonts/Matter-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Matter';
+  src: url('./assets/fonts/Matter-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Matter';
+  src: url('./assets/fonts/Matter-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Matter Mono';
+  src: url('./assets/fonts/MatterMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -5,35 +45,65 @@
 }
 
 :root {
-  --blue: #2B33FF;
-  --red: #D82C0D;
-  --amber: #916A00;
-  --green: #1F8552;
-  --dark-red: #7A1508;
+  /* Loop brand palette */
+  --warm-charcoal: #323200;
+  --warm-charcoal-70: rgba(50, 50, 0, 0.7);
+  --warm-charcoal-50: rgba(50, 50, 0, 0.5);
+  --warm-charcoal-10: rgba(50, 50, 0, 0.1);
+  --plaster: #FFFCF7;
+  --lapis: #0472FF;
+  --lapis-dark: #004DAF;
+  --blue-skies: #8CD3FA;
+  --hi-vis: #E0F731;
+  --blaze: #FF4300;
+  --newsprint: #EEE7DB;
+  --cement: #F4F3F1;
 
-  --bg: #F7F7F8;
+  /* Semantic tokens */
+  --bg: var(--plaster);
   --surface: #FFFFFF;
-  --border: #E5E5E7;
-  --text-primary: #0A0A0B;
-  --text-secondary: #6B6B72;
-  --text-muted: #9B9BA4;
+  --surface-warm: var(--newsprint);
+  --surface-cool: var(--cement);
+  --border: rgba(50, 50, 0, 0.14);
+  --border-strong: rgba(50, 50, 0, 0.22);
+  --text-primary: var(--warm-charcoal);
+  --text-secondary: var(--warm-charcoal-70);
+  --text-muted: var(--warm-charcoal-50);
+
+  --accent: var(--lapis);
+  --accent-dark: var(--lapis-dark);
+  --accent-soft: var(--blue-skies);
+
+  /* Status colors derived from brand palette (no Hi-Vis / Blaze on data) */
+  --status-positive: var(--lapis-dark);
+  --status-positive-soft: rgba(0, 77, 175, 0.08);
+  --status-warn: var(--warm-charcoal-70);
+  --status-warn-soft: var(--newsprint);
+  --status-critical: var(--warm-charcoal);
+  --status-critical-soft: rgba(50, 50, 0, 0.08);
 
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 14px;
   --radius-full: 999px;
 
-  --shadow-card: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
-  --shadow-panel: 0 4px 24px rgba(0,0,0,.08);
+  --shadow-card: 0 1px 2px rgba(50, 50, 0, 0.06), 0 1px 3px rgba(50, 50, 0, 0.04);
+  --shadow-panel: 0 4px 24px rgba(50, 50, 0, 0.08);
+
+  --font-display: 'ABC Ginto', 'Matter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Matter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'Matter Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-body);
   font-size: 14px;
+  font-weight: 400;
   line-height: 1.5;
   color: var(--text-primary);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 button {
@@ -41,13 +111,20 @@ button {
   cursor: pointer;
   border: none;
   background: none;
+  color: inherit;
 }
 
-input {
+input, select, textarea {
   font-family: inherit;
+  color: inherit;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+}
+
+::selection {
+  background: var(--hi-vis);
+  color: var(--text-primary);
 }

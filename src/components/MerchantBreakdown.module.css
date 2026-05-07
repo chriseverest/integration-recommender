@@ -1,6 +1,6 @@
 .wrap {
-  padding: 16px 20px 18px;
-  background: linear-gradient(180deg, #fafaff 0%, #f7f7fb 100%);
+  padding: 18px 22px 20px;
+  background: var(--surface-cool);
   border-top: 1px solid var(--border);
 }
 
@@ -36,12 +36,13 @@
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  color: var(--blue);
+  color: var(--accent);
   font-weight: 600;
 }
 
 .extLink:hover {
   text-decoration: underline;
+  color: var(--accent-dark);
 }
 
 .sections {
@@ -58,9 +59,10 @@
 
 .blockTitle {
   font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.06em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   color: var(--text-secondary);
+  text-transform: uppercase;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -80,7 +82,7 @@
   font-size: 12px;
   font-weight: 500;
   color: var(--text-muted);
-  border: 1.5px dashed #c5c5cb;
+  border: 1px dashed var(--border-strong);
   background: transparent;
 }
 
@@ -91,13 +93,16 @@
   border-radius: var(--radius-full);
   font-size: 12px;
   font-weight: 600;
-  background: #d6f0e2;
-  color: var(--green);
-  border: 1.5px solid var(--green);
+  background: var(--surface-warm);
+  color: var(--accent-dark);
+  border: 1px solid var(--border-strong);
+  transition: background 120ms ease, color 120ms ease;
 }
 
 .canPill:hover {
-  filter: brightness(0.97);
+  background: var(--accent-dark);
+  color: var(--plaster);
+  border-color: var(--accent-dark);
 }
 
 .connPill {
@@ -106,8 +111,8 @@
   border-radius: var(--radius-full);
   font-size: 12px;
   font-weight: 600;
-  color: var(--green);
-  border: 1.5px solid var(--green);
+  color: var(--accent);
+  border: 1px solid var(--accent);
   background: transparent;
 }
 
@@ -118,7 +123,7 @@
   font-size: 12px;
   font-weight: 500;
   color: var(--text-secondary);
-  border: 1.5px dashed #c5c5cb;
+  border: 1px dashed var(--border-strong);
   background: var(--surface);
 }
 
@@ -128,9 +133,9 @@
   border-radius: var(--radius-full);
   font-size: 12px;
   font-weight: 600;
-  color: #5b21b6;
-  border: 1.5px solid #a78bfa;
-  background: #f5f3ff;
+  color: var(--text-primary);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
 }
 
 .no3pl {

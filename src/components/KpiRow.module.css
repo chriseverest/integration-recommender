@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 12px;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 
 @media (max-width: 1200px) {
@@ -18,15 +18,32 @@
 }
 
 .card {
+  position: relative;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  padding: 12px 14px;
+  padding: 14px 16px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  min-height: 72px;
+  gap: 6px;
+  min-height: 78px;
   box-shadow: var(--shadow-card);
+  transition: border-color 120ms ease;
+  overflow: hidden;
+}
+
+.card:hover {
+  border-color: var(--border-strong);
+}
+
+.cardActionable::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--hi-vis);
 }
 
 .valueWrap {
@@ -36,33 +53,35 @@
 }
 
 .value {
-  font-size: 22px;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1;
   color: var(--text-primary);
 }
 
 .value.red {
-  color: var(--red);
+  color: var(--text-primary);
 }
 
 .value.amber {
-  color: var(--amber);
+  color: var(--warm-charcoal-70);
 }
 
 .value.green {
-  color: var(--green);
+  color: var(--accent-dark);
 }
 
 .value.purple {
-  color: #5B21B6;
+  color: var(--accent);
 }
 
 .label {
+  font-family: var(--font-body);
   font-size: 10px;
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   color: var(--text-muted);
 }
